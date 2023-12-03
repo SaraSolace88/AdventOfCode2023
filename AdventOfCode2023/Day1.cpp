@@ -9,26 +9,56 @@ using namespace std;
 // AdventOfCode2023.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
 int NumberInString(string str){
-    if(str.find("one") > 0){
-        return 1;
-    }else if(str.find("two") > 0){
-        return 2;
-    }else if(str.find("three") > 0){
-        return 3;
-    }else if(str.find("four") > 0){
-        return 4;
-    }else if(str.find("five") > 0){
-        return 5;
-    }else if(str.find("six") > 0){
-        return 6;
-    }else if(str.find("seven") > 0){
-        return 7;
-    }else if(str.find("eight") > 0){
-        return 8;
-    }else if(str.find("nine") > 0){
-        return 9;
+    int tmp;
+    int rtnPos = -1;
+    int rtnValue = 0;
+
+    tmp = str.find("one");
+    if(tmp != string::npos && tmp > rtnPos){
+        rtnPos = tmp;
+        rtnValue = 1;
     }
-    return 0;
+    tmp = str.find("two");
+    if(tmp != string::npos && tmp > rtnPos){
+        rtnPos = tmp;
+        rtnValue = 2;
+    }
+    tmp = str.find("three");
+    if(tmp != string::npos && tmp > rtnPos){
+        rtnPos = tmp;
+        rtnValue = 3;
+    }
+    tmp = str.find("four");
+    if(tmp != string::npos && tmp > rtnPos){
+        rtnPos = tmp;
+        rtnValue = 4;
+    }
+    tmp = str.find("five");
+    if(tmp != string::npos && tmp > rtnPos){
+        rtnPos = tmp;
+        rtnValue = 5;
+    }
+    tmp = str.find("six");
+    if(tmp != string::npos && tmp > rtnPos){
+        rtnPos = tmp;
+        rtnValue = 6;
+    }
+    tmp = str.find("seven");
+    if(tmp != string::npos && tmp > rtnPos){
+        rtnPos = tmp;
+        rtnValue = 7;
+    }
+    tmp = str.find("eight");
+    if(tmp != string::npos && tmp > rtnPos){
+        rtnPos = tmp;
+        rtnValue = 8;
+    }
+    tmp = str.find("nine");
+    if(tmp != string::npos && tmp > rtnPos){
+        rtnPos = tmp;
+        rtnValue = 9;
+    }
+    return rtnValue;
 }
 
 int main()
@@ -37,7 +67,7 @@ int main()
     string currLine, currLetters;
 
     // Read from the text file
-    ifstream MyReadFile("Day1SmallTest.txt");
+    ifstream MyReadFile("Day1.2SmallTest.txt");
 
     //while 
     while (getline (MyReadFile, currLine)) {
@@ -52,30 +82,33 @@ int main()
                     if(tmp == 0){
                         first = currLine[b] - '0';
                         last = currLine[b] - '0';
-                        currLetters.clear();
                     }else{
                         first = tmp;
                         last = tmp;
-                        currLetters.clear();
                     }
+                    currLetters.clear();
                 }else{
                     last = currLine[b] - '0';
                     currLetters.clear();
                 }
             }else{
                 currLetters += currLine[b];
+                if(first == -1){
+                    int tmp = NumberInString(currLetters);
+                    if(tmp != 0){
+                        first = tmp;
+                        last = tmp;
+                    }
+                }
             }
         }
         if(currLetters != ""){
             int tmp = NumberInString(currLetters);
             if(tmp != 0){
                 last = tmp;
-                currLetters.clear();
             }
         }
         last += first * 10;
-        cout << last;
-        cout << "\n";
         sum += last;
         }
         cout << sum;
